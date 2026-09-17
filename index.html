@@ -229,6 +229,9 @@
   .look-thumb{width:54px;height:54px;flex-shrink:0;border-radius:5px;}
   .look-total{display:flex;justify-content:space-between;align-items:baseline;padding-top:4px;}
   .look-total strong{font-size:19px;}
+  .look-full{grid-template-columns:1fr 1fr;gap:44px;}
+  .look-item .look-acts{display:flex;gap:8px;align-items:center;flex-shrink:0;}
+  .look-item .look-meta{font-size:12px;color:var(--ink-2);line-height:1.5;}
 
   .giftband{background:var(--ink);color:var(--surface);border-radius:12px;padding:42px 46px;display:flex;justify-content:space-between;align-items:center;gap:36px;margin-bottom:46px;}
   .giftband .eyebrow{font-size:10px;letter-spacing:3px;color:var(--faint);}
@@ -458,11 +461,13 @@
   }
   @media (max-width:920px){
     .wrap{padding:0 20px;}
-    .sitebar>.wrap{height:64px;flex-wrap:nowrap;gap:10px;position:relative;}
-    .menu-btn{display:grid;}
+    .sitebar>.wrap{height:60px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:6px;align-items:center;}
+    .menu-btn{display:grid;justify-self:start;width:44px;height:44px;}
     .mainnav{display:none;}
-    .logo{position:absolute;left:50%;transform:translateX(-50%);font-size:20px;letter-spacing:2px;}
-    .actions{margin-left:auto;}
+    .sitebar>.wrap>.logo{font-size:19px;letter-spacing:2px;text-align:center;white-space:nowrap;justify-self:center;min-width:0;}
+    .actions{justify-self:end;margin-left:0;gap:0;}
+    .actions .icon-btn{width:44px;height:44px;}
+    .actions .icon-btn.sea{display:none;}
     .mega{display:none;}
     .mnav{display:flex;}
     .mnav-bd{display:block;}
@@ -523,6 +528,12 @@
     .cats{gap:2px;}
     .cat span{font-size:10px;letter-spacing:1.6px;}
     .brandhero h1{letter-spacing:3px;}
+    .sitebar>.wrap>.logo{font-size:16px;letter-spacing:1px;}
+    .look{gap:24px;}
+    .look-media{aspect-ratio:3/4;}
+    .look-item{padding:10px 12px;gap:12px;align-items:flex-start;}
+    .look-thumb{width:48px;height:48px;}
+    .look-item .look-acts{flex-direction:column;align-items:flex-end;gap:6px;}
   }
 </style>
 </head>
@@ -759,7 +770,7 @@
         return '<a href="'+x.h+'"'+(x.t===active?' class="on"':'')+(x.dd?' data-dd="1"':'')+'>'+x.t+(x.dd?' <span class="chev" aria-hidden="true">'+I.chev+'</span>':'')+'</a>';
       }).join('')+'</nav>'+
       '<div class="actions">'+
-        '<button class="icon-btn" title="Buscar" aria-label="Buscar" data-go="#/buscar">'+I.search+'</button>'+
+        '<button class="icon-btn sea" title="Buscar" aria-label="Buscar" data-go="#/buscar">'+I.search+'</button>'+
         '<button class="icon-btn" title="Mi cuenta" aria-label="Mi cuenta" data-go="#/cuenta">'+I.user+'</button>'+
         '<button class="icon-btn" title="Favoritos" aria-label="Favoritos" data-go="#/favoritos">'+I.heart+'<span class="cart-count" data-count="fav"'+(f?'':' hidden')+'>'+f+'</span></button>'+
         '<button class="icon-btn" title="Carrito" aria-label="Abrir carrito" data-drawer>'+I.bag+'<span class="cart-count" data-count="cart"'+(n?'':' hidden')+'>'+n+'</span></button>'+
@@ -1061,13 +1072,13 @@
     var items=LOOK.map(function(it,i){
       var p=BY[it[0]];
       return '<div class="look-item"><div class="look-thumb ph" style="background:var('+p.tone+')">'+pimg(p.key,p.name)+'</div>'+
-        '<div style="flex:1"><div class="prod-name">'+esc(p.name)+'</div><div class="prod-brand">Talla '+esc(it[1])+' · '+money(p.price)+'</div></div>'+
-        '<button class="link-all" data-swap="'+i+'">Cambiar</button></div>';
+        '<div style="flex:1;min-width:0"><div class="prod-name">'+esc(p.name)+'</div><div class="look-meta">Talla '+esc(it[1])+' · '+money(p.price)+'</div></div>'+
+        '<div class="look-acts"><button class="link-all" data-swap="'+i+'">Cambiar</button></div></div>';
     }).join('');
     return '<div class="wrap" data-od-id="view-look">'+
       '<nav class="crumbs" aria-label="Ruta"><a href="#/">Inicio</a><span class="sep">/</span><span>Arma tu look</span></nav>'+
       '<div class="pagehead"><div><h1>ARMA TU LOOK</h1><div class="sec-rule"></div></div><span class="count">3 prendas combinadas</span></div>'+
-      '<div class="look" style="grid-template-columns:1fr 1fr;gap:44px"><div class="look-media ph" style="background:var(--t2)">'+cov('ed-look.jpg','Outfit completo Clothon')+'</div>'+
+      '<div class="look look-full"><div class="look-media ph" style="background:var(--t2)">'+cov('ed-look.jpg','Outfit completo Clothon')+'</div>'+
       '<div><div class="sec-title" style="font-size:11px;letter-spacing:1.5px;color:var(--muted);margin-bottom:14px">PRENDAS DE ESTE LOOK</div>'+
       '<div class="look-side">'+items+'<div class="look-total"><span class="prod-brand">Total del look</span><strong id="look-total">'+money(lookTotal())+'</strong></div>'+
       '<button class="btn btn-dark btn-block" data-add-look>AÑADIR LOOK COMPLETO</button></div>'+

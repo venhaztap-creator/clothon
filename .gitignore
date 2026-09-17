@@ -2,6 +2,14 @@
 .file-versions/
 .od-skills/
 *.artifact.json
+_*.html
+_*.mjs
+_*.txt
+_*.png
+
+# --- material de referencia del cliente (no forma parte del sitio) ---
+Clothon-Mockups---Mobile---Standalone.html
+image.png
 
 # --- sistema / editor ---
 Thumbs.db
