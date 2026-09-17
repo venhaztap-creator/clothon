@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clothon — Mockups (escritorio)</title>
+<style>
+  /* ─── fuentes de marca ─────────────────────────────────────────── */
+  @font-face{font-family:'Raleway';src:url('./assets/fonts/Raleway-Regular.ttf') format('truetype');font-weight:400;font-display:swap;}
+  @font-face{font-family:'Raleway';src:url('./assets/fonts/Raleway-Medium.ttf') format('truetype');font-weight:500;font-display:swap;}
+  @font-face{font-family:'Raleway';src:url('./assets/fonts/Raleway-SemiBold.ttf') format('truetype');font-weight:600;font-display:swap;}
+  @font-face{font-family:'Raleway';src:url('./assets/fonts/Raleway-Bold.ttf') format('truetype');font-weight:700;font-display:swap;}
+  @font-face{font-family:'Enigma';src:url('./assets/fonts/Enigma.otf') format('opentype');font-display:swap;}
+
+  /* ─── tokens CLOTHON (extraídos de la base móvil) ──────────────── */
+  :root{
+    --bg:#f0efec;
+    --surface:#ffffff;
+    --ink:#111111;
+    --ink-2:#555555;
+    --muted:#999999;
+    --faint:#cccccc;
+    --hair:#eeeeee;
+    --hair-2:#f2f2f2;
+    --line:#e0e0e0;
+    --chrome:#f4f4f2;
+    --ok:#4a7a4a;
+    --alert:#b33333;
+
+    --t1:#ececec; --t2:#e6e6e6; --t3:#e0e0e0;
+    --t4:#d9d9d9; --t5:#d2d2d2; --t6:#c8c8c8; --t7:#f4f4f4;
+
+    --ink-soft:color-mix(in oklab, var(--ink) 6%, transparent);
+    --surface-soft:color-mix(in oklab, var(--surface) 86%, transparent);
+
+    --font-body:'Raleway',Arial,sans-serif;
+    --font-logo:'Enigma','Raleway',sans-serif;
+
+    --radius:10px;
+    --shadow:0 18px 50px rgba(0,0,0,.10);
+  }
+
+  /* ─── base ─────────────────────────────────────────────────────── */
+  *,*::before,*::after{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none;}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;}
+  img,svg{display:block;}
+  h1,h2,h3,h4,h5,p,figure,ul{margin:0;}
+  ul{padding:0;list-style:none;}
+  p{text-wrap:pretty;}
+  h1,h2,h3{text-wrap:balance;}
+  :focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
+
+  /* ─── cabecera de la galería ───────────────────────────────────── */
+  .gal-head{text-align:center;padding:44px 20px 6px;}
+  .gal-logo{font-family:var(--font-logo);font-size:16px;letter-spacing:4px;}
+  .gal-sub{font-size:12px;color:var(--muted);margin-top:9px;}
+  .idx{position:sticky;top:0;z-index:60;margin-top:26px;border-block:1px solid var(--line);background:color-mix(in oklab,var(--bg) 92%,transparent);backdrop-filter:blur(12px);}
+  .idx-inner{max-width:1440px;margin:0 auto;padding:0 20px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;}
+  .idx-inner::-webkit-scrollbar{display:none;}
+  .idx a{font-size:11px;letter-spacing:1.4px;color:var(--muted);padding:14px 11px;white-space:nowrap;border-bottom:2px solid transparent;transition:.15s;}
+  .idx a:hover{color:var(--ink);}
+  .idx a.on{color:var(--ink);border-bottom-color:var(--ink);}
+
+  /* ─── bloque de mockup ─────────────────────────────────────────── */
+  .mock{max-width:1440px;margin:0 auto;padding:54px 20px 8px;scroll-margin-top:64px;}
+  .mock-label{font-size:11px;letter-spacing:2.5px;color:var(--muted);}
+  .mock-title{font-size:22px;font-weight:600;color:var(--ink);margin-top:7px;}
+  .mock-desc{font-size:13px;color:var(--muted);margin-top:7px;max-width:78ch;line-height:1.6;}
+
+  .frame{margin-top:20px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow);}
+  .frame-chrome{display:flex;align-items:center;gap:14px;padding:11px 14px;background:var(--chrome);border-bottom:1px solid var(--line);}
+  .dots{display:flex;gap:6px;}
+  .dot{width:10px;height:10px;border-radius:50%;background:var(--t6);}
+  .urlbar{flex:1;max-width:540px;margin:0 auto;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 16px;display:flex;align-items:center;gap:8px;justify-content:center;font-size:10.5px;color:var(--ink-2);}
+  .lock{width:9px;height:9px;border:1px solid var(--muted);border-radius:2px;flex-shrink:0;}
+  .frame-viewport{position:relative;overflow:hidden;background:var(--surface);}
+  .screen{width:1440px;transform-origin:top left;background:var(--surface);color:var(--ink);font-size:14px;}
+
+  /* ─── chrome interno del sitio ─────────────────────────────────── */
+  .wrap{max-width:1280px;margin:0 auto;padding:0 40px;}
+  .sitebar{border-bottom:1px solid var(--hair);background:var(--surface);}
+  .sitebar .wrap{display:flex;align-items:center;gap:28px;height:76px;}
+  .logo{font-family:var(--font-logo);font-size:23px;font-weight:700;letter-spacing:3px;line-height:1;}
+  .mainnav{display:flex;gap:24px;margin:0 auto;}
+  .mainnav a{font-size:12px;letter-spacing:1.5px;color:var(--ink-2);padding:5px 0;border-bottom:1px solid transparent;transition:.15s;}
+  .mainnav a:hover,.mainnav a.on{color:var(--ink);border-bottom-color:var(--ink);}
+  .actions{display:flex;gap:4px;align-items:center;}
+  .icon-btn{position:relative;width:40px;height:40px;display:grid;place-items:center;border-radius:50%;transition:background .15s;}
+  .icon-btn:hover{background:var(--hair-2);}
+  .icon-btn svg{width:19px;height:19px;fill:none;stroke:var(--ink);stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;}
+  .cart-count{position:absolute;top:3px;right:1px;min-width:16px;height:16px;padding:0 4px;border-radius:999px;background:var(--ink);color:var(--surface);font-size:9.5px;display:grid;place-items:center;}
+
+  /* ─── hero ─────────────────────────────────────────────────────── */
+  .hero-media{position:relative;aspect-ratio:21/8;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,var(--t1),var(--t4));}
+  .hero-media .hero-eyebrow{position:absolute;top:28px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:4px;color:var(--ink-2);}
+  .hero-note{font-size:12px;color:var(--ink-2);letter-spacing:.5px;}
+  .hero-arrow{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;background:var(--surface-soft);display:grid;place-items:center;font-size:18px;transition:background .15s;}
+  .hero-arrow:hover{background:var(--surface);}
+  .hero-arrow.left{left:26px;}
+  .hero-arrow.right{right:26px;}
+  .hero-cta{position:absolute;bottom:36px;}
+  .hero-dots{display:flex;justify-content:center;gap:7px;padding:13px 0;}
+  .hero-dots button{width:18px;height:3px;border-radius:2px;background:var(--line);transition:.15s;}
+  .hero-dots button.on{background:var(--ink);}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-size:11px;letter-spacing:2px;padding:14px 26px;border-radius:2px;transition:background .15s,color .15s,border-color .15s;}
+  .btn-dark{background:var(--ink);color:var(--surface);}
+  .btn-dark:hover{background:var(--ink-2);}
+  .btn-light{background:var(--surface);color:var(--ink);}
+  .btn-light:hover{background:var(--hair);}
+  .btn-outline{border:1px solid var(--ink);color:var(--ink);}
+  .btn-outline:hover{background:var(--ink);color:var(--surface);}
+  .btn-block{width:100%;}
+
+  /* ─── placeholders de imagen ───────────────────────────────────── */
+  .ph{display:grid;place-items:center;font-size:11px;color:var(--muted);letter-spacing:.5px;line-height:1.6;text-align:center;padding:10px;background:var(--t1);}
+
+  /* ─── secciones ────────────────────────────────────────────────── */
+  .sec{margin-bottom:46px;}
+  .sec-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:18px;}
+  .sec-title{font-size:15px;letter-spacing:2px;}
+  .sec-rule{width:28px;height:1px;background:var(--ink);margin-top:9px;}
+  .link-all{font-size:11.5px;color:var(--muted);text-decoration:underline;}
+  .link-all:hover{color:var(--ink);}
+
+  .brandstrip{border-block:1px solid var(--hair-2);margin:22px 0;padding:20px 0;}
+  .brandstrip .wrap{display:flex;justify-content:space-between;gap:22px;}
+  .brandstrip span{font-size:12px;letter-spacing:2px;color:var(--muted);}
+
+  .finder{max-width:820px;margin:0 auto;text-align:center;padding:16px 0 42px;}
+  .finder-eyebrow{font-size:11px;letter-spacing:2.5px;color:var(--muted);margin-bottom:16px;}
+  .finder-bar{display:flex;align-items:center;gap:6px;border:1px solid var(--ink);border-radius:999px;padding:6px;background:var(--surface);box-shadow:0 12px 30px rgba(0,0,0,.06);}
+  .finder-field{flex:1;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 20px;}
+  .finder-field select{appearance:none;border:0;background:transparent;font:inherit;font-size:12.5px;color:var(--ink);cursor:pointer;flex:1;outline:0;}
+  .finder-field .chev{color:var(--faint);}
+  .finder-div{width:1px;align-self:stretch;background:var(--hair);margin:8px 0;}
+  .finder-go{width:48px;height:48px;border-radius:50%;background:var(--ink);color:var(--surface);display:grid;place-items:center;font-size:15px;flex-shrink:0;transition:background .15s;}
+  .finder-go:hover{background:var(--ink-2);}
+
+  .cats{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-bottom:46px;}
+  .cat{position:relative;aspect-ratio:4/3;display:flex;align-items:flex-end;justify-content:center;padding-bottom:22px;}
+  .cat span{font-size:12px;letter-spacing:2.5px;border-bottom:1px solid var(--ink);padding:6px 10px;background:var(--surface-soft);}
+
+  .grid{display:grid;gap:16px;}
+  .g5{grid-template-columns:repeat(5,1fr);}
+  .g4{grid-template-columns:repeat(4,1fr);}
+  .g3{grid-template-columns:repeat(3,1fr);}
+  .prod-img{position:relative;aspect-ratio:3/4;margin-bottom:10px;}
+  .prod-brand{font-size:10px;letter-spacing:1px;color:var(--muted);}
+  .prod-name{font-size:12.5px;margin-top:3px;}
+  .prod-price{font-size:12.5px;letter-spacing:.5px;margin-top:3px;}
+  .prod-fav{position:absolute;top:9px;right:9px;width:32px;height:32px;border-radius:50%;background:var(--surface-soft);display:grid;place-items:center;font-size:14px;color:var(--ink);transition:background .15s,transform .1s;}
+  .prod-fav:hover{background:var(--surface);transform:scale(1.06);}
+  .prod-fav.on{color:var(--alert);}
+  .prod-tag{position:absolute;bottom:9px;left:9px;background:var(--surface);font-size:9.5px;letter-spacing:1px;padding:4px 8px;}
+
+  .banner{aspect-ratio:21/7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:linear-gradient(120deg,var(--t7),var(--t4));margin-bottom:46px;}
+  .banner .eyebrow{font-size:11px;letter-spacing:4px;color:var(--ink-2);}
+  .banner h3{font-size:28px;font-weight:700;letter-spacing:1px;}
+
+  .look{display:grid;grid-template-columns:1.25fr 1fr;gap:22px;align-items:start;}
+  .look-media{aspect-ratio:4/5;}
+  .look-side{display:flex;flex-direction:column;gap:12px;}
+  .look-item{display:flex;gap:14px;align-items:center;border:1px solid var(--hair);border-radius:8px;padding:12px 14px;background:var(--surface);transition:border-color .15s;}
+  .look-item:hover{border-color:var(--line);}
+  .look-thumb{width:54px;height:54px;flex-shrink:0;border-radius:5px;}
+  .look-total{display:flex;justify-content:space-between;align-items:baseline;padding-top:4px;}
+  .look-total strong{font-size:19px;}
+
+  .giftband{background:var(--ink);color:var(--surface);border-radius:12px;padding:42px 46px;display:flex;justify-content:space-between;align-items:center;gap:36px;margin-bottom:46px;}
+  .giftband .eyebrow{font-size:10px;letter-spacing:3px;color:var(--faint);}
+  .giftband h3{font-size:26px;font-weight:700;margin:8px 0 20px;}
+  .gift-card{width:190px;aspect-ratio:16/10;background:color-mix(in oklab,var(--surface) 14%,var(--ink));border-radius:10px;flex-shrink:0;display:grid;place-items:center;font-family:var(--font-logo);font-size:13px;letter-spacing:3px;}
+
+  .brandrow{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;}
+  .brandlogo{aspect-ratio:2/1;background:var(--t7);display:grid;place-items:center;font-size:11px;letter-spacing:2px;color:var(--muted);}
+  .brandsearch{margin-top:16px;border:1px solid var(--hair);border-radius:999px;padding:17px 26px;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);transition:border-color .15s;}
+  .brandsearch:hover{border-color:var(--ink);}
+  .brandsearch b{color:var(--ink);font-weight:600;}
+  .brandsearch .go{color:var(--ink);}
+
+  /* ─── pie de página ────────────────────────────────────────────── */
+  .sitefoot{border-top:1px solid var(--hair);padding:42px 0 26px;}
+  .foot-services{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding-bottom:34px;border-bottom:1px solid var(--hair-2);}
+  .foot-services>div{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;}
+  .foot-services svg{width:22px;height:22px;fill:none;stroke:var(--ink);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;}
+  .foot-services h4{font-size:11px;letter-spacing:2px;}
+  .foot-services p{font-size:11.5px;color:var(--muted);line-height:1.6;}
+  .foot-grid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:34px;padding:34px 0;}
+  .foot-grid h5{font-size:11px;letter-spacing:2px;margin-bottom:15px;}
+  .foot-grid a,.foot-grid p{display:block;font-size:12px;color:var(--muted);margin-bottom:9px;line-height:1.6;}
+  .foot-grid a:hover{color:var(--ink);}
+  .foot-brand .logo{font-size:20px;margin-bottom:14px;}
+  .foot-brand p{max-width:34ch;}
+  .foot-bottom{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--hair-2);padding-top:20px;font-size:11px;color:var(--muted);}
+
+  /* ─── menú (mega menú) ─────────────────────────────────────────── */
+  .mega-wrap{position:relative;}
+  .hero-sm{aspect-ratio:21/5;background:linear-gradient(180deg,var(--t1),var(--t4));}
+  .scrim{position:absolute;inset:0;background:color-mix(in oklab,var(--ink) 42%,transparent);}
+  .mega{position:relative;background:var(--surface);border-bottom:1px solid var(--hair);box-shadow:0 30px 60px rgba(0,0,0,.16);}
+  .mega-grid{display:grid;grid-template-columns:1.45fr 1fr;gap:44px;padding:34px 0 42px;}
+  .mega-cats{display:grid;grid-template-columns:1fr 1fr;gap:0 44px;align-content:start;}
+  .mega-cat{border-bottom:1px solid var(--hair-2);padding:14px 0;}
+  .mega-cat a.head{font-size:12.5px;letter-spacing:1px;display:flex;justify-content:space-between;align-items:center;color:var(--ink);}
+  .mega-cat a.head:hover{text-decoration:underline;}
+  .mega-cat ul{margin-top:10px;display:flex;flex-direction:column;gap:8px;}
+  .mega-cat li a{font-size:12px;color:var(--ink-2);}
+  .mega-cat li a:hover{color:var(--ink);text-decoration:underline;}
+  .mega-side{border-left:1px solid var(--hair);padding-left:44px;}
+  .mega-side h5{font-size:11px;letter-spacing:2px;margin-bottom:14px;}
+  .mega-brandlist{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;}
+  .mega-brandlist a{font-size:12px;color:var(--ink-2);}
+  .mega-brandlist a:hover{color:var(--ink);text-decoration:underline;}
+  .mega-cta{margin-top:22px;display:flex;align-items:center;justify-content:space-between;background:var(--ink);color:var(--surface);padding:16px 20px;font-size:11.5px;letter-spacing:1.5px;}
+
+  /* ─── listado ──────────────────────────────────────────────────── */
+  .crumbs{display:flex;gap:10px;align-items:center;font-size:11.5px;color:var(--muted);padding:20px 0 6px;}
+  .crumbs .sep{color:var(--faint);}
+  .pagehead{display:flex;justify-content:space-between;align-items:baseline;padding:4px 0 16px;}
+  .pagehead h1{font-size:32px;font-weight:700;letter-spacing:1px;}
+  .pagehead .count{font-size:12px;color:var(--muted);}
+  .cats-row{display:flex;gap:24px;border-bottom:1px solid var(--hair);}
+  .cats-row a{font-size:13px;letter-spacing:1px;padding:15px 0;border-bottom:2px solid transparent;color:var(--ink-2);}
+  .cats-row a:hover{color:var(--ink);}
+  .cats-row a.on{color:var(--ink);border-bottom-color:var(--ink);}
+  .toolbar{display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid var(--hair);padding:16px 0;margin-bottom:28px;}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+  .chip{border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:12px;display:inline-flex;gap:8px;align-items:center;transition:.15s;}
+  .chip:hover{border-color:var(--ink);}
+  .chip.on{background:var(--ink);color:var(--surface);border-color:var(--ink);}
+  .chip .chev{color:var(--faint);}
+  .chip.on .chev{color:var(--surface);}
+  .sort{font-size:12px;color:var(--muted);display:inline-flex;gap:8px;align-items:center;white-space:nowrap;}
+  .sort:hover{color:var(--ink);}
+
+  /* ─── ficha de producto ────────────────────────────────────────── */
+  .pdp{display:grid;grid-template-columns:1.12fr 1fr;gap:56px;padding:26px 0 54px;}
+  .pdp-gallery{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:start;}
+  .pdp-thumbs{display:flex;flex-direction:column;gap:10px;}
+  .pdp-thumb{aspect-ratio:1/1;cursor:pointer;}
+  .pdp-thumb.on{outline:1px solid var(--ink);outline-offset:2px;}
+  .pdp-main{aspect-ratio:4/5;position:relative;}
+  .pdp-brand{font-size:11px;letter-spacing:2px;color:var(--muted);}
+  .pdp-title{font-size:30px;font-weight:600;margin-top:6px;}
+  .pdp-rating{display:flex;gap:10px;align-items:center;margin-top:12px;font-size:12px;color:var(--muted);}
+  .pdp-rating .stars{letter-spacing:2px;color:var(--ink);}
+  .pdp-rating a{text-decoration:underline;}
+  .pdp-price{font-size:22px;margin-top:12px;}
+  .pdp-stock{font-size:12px;color:var(--ok);margin-top:8px;}
+  .opt-label{display:flex;justify-content:space-between;font-size:11px;letter-spacing:2px;color:var(--muted);margin:24px 0 12px;}
+  .opt-label a{text-decoration:underline;}
+  .swatches{display:flex;gap:10px;}
+  .swatch{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);cursor:pointer;transition:.15s;}
+  .swatch.on{outline:2px solid var(--ink);outline-offset:2px;}
+  .sizes{display:flex;gap:10px;flex-wrap:wrap;}
+  .size-opt{width:50px;height:44px;border:1px solid var(--line);display:grid;place-items:center;font-size:13px;transition:.15s;background:var(--surface);}
+  .size-opt:hover{border-color:var(--ink);}
+  .size-opt.on{border-color:var(--ink);background:var(--ink-soft);}
+  .size-opt.off{color:var(--faint);border-color:var(--hair-2);cursor:not-allowed;text-decoration:line-through;}
+  .pdp-buy{margin-top:26px;}
+  .acc{border-top:1px solid var(--hair-2);}
+  .acc-head{width:100%;display:flex;justify-content:space-between;align-items:center;padding:18px 0;font-size:12.5px;letter-spacing:.6px;text-align:left;}
+  .acc-body{display:none;padding:0 0 18px;font-size:13px;color:var(--ink-2);line-height:1.8;max-width:64ch;}
+  .acc.open .acc-body{display:block;}
+  .acc-plus{color:var(--faint);transition:transform .2s;}
+  .acc.open .acc-plus{transform:rotate(45deg);}
+  .reviews{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:8px;}
+  .review{border-top:1px solid var(--hair-2);padding-top:14px;}
+  .review-head{display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;}
+  .review p{font-size:12.5px;color:var(--ink-2);line-height:1.7;}
+  .review-head .stars{color:var(--ink);letter-spacing:2px;}
+
+  /* ─── página de marca ──────────────────────────────────────────── */
+  .brandhero{position:relative;aspect-ratio:21/7;display:grid;place-items:center;background:linear-gradient(180deg,var(--t1),var(--t4));}
+  .brandhero .note{font-size:12px;color:var(--ink-2);}
+  .brandhero .inner{position:absolute;bottom:42px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px;}
+  .brandhero .since{font-size:10px;letter-spacing:3px;color:var(--ink-2);}
+  .about{display:grid;grid-template-columns:1fr 1.4fr;gap:32px;align-items:center;}
+  .about .ph{aspect-ratio:1/1;}
+
+  /* ─── búsqueda ─────────────────────────────────────────────────── */
+  .searchbar{display:flex;align-items:center;gap:14px;border:1px solid var(--ink);border-radius:999px;padding:16px 24px;background:var(--surface);}
+  .searchbar svg{width:18px;height:18px;fill:none;stroke:var(--ink);stroke-width:1.3;flex-shrink:0;}
+  .searchbar input{border:0;outline:0;flex:1;font:inherit;font-size:15px;color:var(--ink);background:transparent;}
+  .chipsoft{border:1px solid var(--hair);border-radius:999px;padding:8px 15px;font-size:12px;color:var(--ink-2);}
+  .chipsoft:hover{border-color:var(--ink);color:var(--ink);}
+
+  /* ─── cuenta ───────────────────────────────────────────────────── */
+  .account{display:grid;grid-template-columns:300px 1fr;gap:48px;padding:34px 0 54px;align-items:start;}
+  .acc-side{border:1px solid var(--hair);border-radius:12px;padding:22px;background:var(--surface);}
+  .acc-user{display:flex;gap:14px;align-items:center;padding-bottom:18px;border-bottom:1px solid var(--hair-2);margin-bottom:12px;}
+  .avatar{width:56px;height:56px;border-radius:50%;background:var(--ink);color:var(--surface);display:grid;place-items:center;font-size:17px;flex-shrink:0;}
+  .acc-user .nm{font-size:13.5px;font-weight:600;}
+  .acc-user .em{font-size:11px;color:var(--muted);margin-top:3px;}
+  .acc-nav a{display:flex;justify-content:space-between;align-items:center;padding:13px 0;font-size:13px;color:var(--ink-2);border-bottom:1px solid var(--hair-2);}
+  .acc-nav a:hover{color:var(--ink);}
+  .acc-nav a.on{color:var(--ink);font-weight:600;}
+  .acc-nav a.danger{color:var(--alert);border-bottom:0;}
+  .acc-panel h3{font-size:16px;letter-spacing:1px;border-bottom:1px solid var(--hair);padding-bottom:14px;margin-bottom:20px;}
+  .order-row{display:flex;justify-content:space-between;align-items:center;gap:16px;border:1px solid var(--hair);border-radius:10px;padding:17px 20px;font-size:12.5px;}
+  .order-row+.order-row{margin-top:10px;}
+  .order-row .meta{color:var(--muted);font-size:11.5px;}
+  .addr-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;}
+  .addr{border:1px solid var(--hair);border-radius:10px;padding:18px;font-size:12.5px;line-height:1.8;color:var(--ink-2);}
+  .addr b{display:block;color:var(--ink);font-weight:600;margin-bottom:4px;}
+
+  /* ─── gift card ────────────────────────────────────────────────── */
+  .gift-page{display:grid;grid-template-columns:1fr 1fr;gap:56px;padding:32px 0 56px;align-items:start;}
+  .giftcard-big{aspect-ratio:16/10;background:var(--ink);border-radius:14px;padding:30px;display:flex;flex-direction:column;justify-content:space-between;color:var(--surface);}
+  .giftcard-big .brand{font-family:var(--font-logo);font-size:15px;letter-spacing:3px;}
+  .giftcard-big .val{font-size:34px;font-weight:700;}
+  .amounts{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+  .amt{border:1px solid var(--hair);border-radius:8px;padding:12px 22px;font-size:13px;cursor:pointer;transition:.15s;background:var(--surface);}
+  .amt:hover{border-color:var(--ink);}
+  .amt.on{border-color:var(--ink);background:var(--ink-soft);}
+  .field{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;}
+  .field label{font-size:11px;letter-spacing:1.5px;color:var(--muted);}
+  .field input,.field textarea{border:1px solid var(--hair);border-radius:8px;padding:14px 16px;font:inherit;font-size:13px;outline:0;background:var(--surface);color:var(--ink);width:100%;}
+  .field input:focus,.field textarea:focus{border-color:var(--ink);box-shadow:0 0 0 3px var(--ink-soft);}
+  .field textarea{min-height:96px;resize:vertical;}
+  .redeem{display:flex;gap:10px;margin-top:14px;}
+  .redeem input{flex:1;}
+
+  /* ─── ayuda ────────────────────────────────────────────────────── */
+  .help{display:grid;grid-template-columns:1.5fr 1fr;gap:56px;padding:32px 0 56px;align-items:start;}
+  .help-side{display:flex;flex-direction:column;gap:22px;}
+  .help-block{border:1px solid var(--hair);border-radius:12px;padding:26px;background:var(--surface);}
+  .help-block h5{font-size:11px;letter-spacing:2px;margin-bottom:16px;}
+  .help-links{display:flex;flex-direction:column;gap:11px;}
+  .help-links a{font-size:12.5px;text-decoration:underline;color:var(--ink-2);}
+  .help-links a:hover{color:var(--ink);}
+  .help-dark{background:var(--ink);color:var(--surface);border-radius:12px;padding:28px;display:flex;flex-direction:column;gap:16px;}
+  .help-dark h5{font-size:11px;letter-spacing:2px;color:var(--surface);}
+  .help-dark .foot{display:flex;justify-content:space-between;font-size:11px;color:var(--faint);margin-top:6px;}
+
+  /* ─── responsive de la galería ─────────────────────────────────── */
+  @media (max-width:920px){
+    .gal-head{padding-top:32px;}
+    .mock{padding:36px 12px 6px;}
+    .mock-title{font-size:19px;}
+    .foot-bottom{flex-direction:column;gap:6px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="gal-head">
+  <div class="gal-logo">CLOTHON</div>
+  <div class="gal-sub">Mockups de tienda en línea — versión escritorio · 12 pantallas</div>
+</div>
+
+<nav class="idx" aria-label="Índice de pantallas">
+  <div class="idx-inner" id="idx"></div>
+</nav>
+
+<main id="content">
+
+  <!-- ═══ 1 · HOME ═══════════════════════════════════════════════ -->
+  <section class="mock" id="screen-1" data-od-id="mockup-home">
+    <div class="mock-label">MOCKUP 1 DE 12</div>
+    <h2 class="mock-title">Home</h2>
+    <p class="mock-desc">Cabecera con navegación completa, carrusel editorial, buscador de talla, categorías, novedades, banner de temporada, combinador de looks, más vendidos, gift card, marcas y pie de página.</p>
+    <figure class="frame" data-design="1440">
+      <div class="frame-chrome"><span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><span class="urlbar"><span class="lock"></span>clothon.com</span></div>
+      <div class="frame-viewport"><div class="screen">
+        <header class="sitebar" data-header="Inicio" data-od-id="home-header"></header>
+
+        <div class="hero" data-od-id="home-hero">
+          <div class="hero-media">
+            <span class="hero-eyebrow" id="hero-eyebrow">NUEVA COLECCIÓN</span>
+            <span class="hero-note" id="hero-note">[ carrusel — foto editorial 1 de 4 ]</span>
+            <button class="hero-arrow left" data-slide="-1" aria-label="Anterior">‹</button>
+            <button class="hero-arrow right" data-slide="1" aria-label="Siguiente">›</button>
+            <button class="btn btn-dark hero-cta">COMPRAR AHORA →</button>
+          </div>
+          <div class="hero-dots" id="hero-dots"></div>
+        </div>
+
+        <div class="brandstrip">
+          <div class="wrap">
+            <span>TOMMY HILFIGER</span><span>HUGO BOSS</span><span>PSYCHO BUNNY</span>
+            <span>KARL LAGERFELD</span><span>NAUTICA</span><span>ARMANI</span>
+          </div>
+        </div>
+
+        <div class="wrap">
+          <div class="finder" data-od-id="home-finder">
+            <div class="finder-eyebrow">ENCUENTRA TU TALLA</div>
+            <div class="finder-bar">
+              <div class="finder-field"><select aria-label="Categoría"><option>Categoría</option><option>Zapatos</option><option>Chemises</option><option>Franelas</option><option>Pantalones y Jeans</option></select><span class="chev">⌄</span></div>
+              <div class="finder-div"></div>
+              <div class="finder-field"><select aria-label="Talla"><option>Talla</option><option>38</option><option>40</option><option>42</option><option>M</option><option>L</option></select><span class="chev">⌄</span></div>
+              <button class="finder-go" aria-label="Buscar por talla">→</button>
+            </div>
+          </div>
+
+          <div class="sec" data-od-id="home-categories">
+            <div class="sec-head"><div><div class="sec-title">CATEGORÍAS</div><div class="sec-rule"></div></div><a class="link-all" href="#screen-4">Ver todo el catálogo</a></div>
+            <div class="cats">
+              <a class="cat ph" style="background:var(--t1)" href="#screen-4"><span>FRANELAS</span></a>
+              <a class="cat ph" style="background:var(--t2)" href="#screen-4"><span>CHEMISES</span></a>
+              <a class="cat ph" style="background:var(--t3)" href="#screen-4"><span>ZAPATOS</span></a>
+            </div>
+          </div>
+
+          <div class="sec" data-od-id="home-new">
+            <div class="sec-head"><div><div class="sec-title">RECIÉN LLEGADOS</div><div class="sec-rule"></div></div><a class="link-all" href="#screen-4">Ver novedades</a></div>
+            <div class="grid g5" data-products="chemiseLino,franelaOversize,sneakerLow,gorraLogo,nauticoLona"></div>
+          </div>
+
+          <div class="banner" data-od-id="home-banner">
+            <span class="eyebrow">TEMPORADA</span>
+            <h3>CHEMISES DE LINO</h3>
+            <button class="btn btn-dark">VER COLECCIÓN</button>
+          </div>
+
+          <div class="sec" data-od-id="home-look">
+            <div class="sec-head"><div><div class="sec-title">ARMA TU LOOK</div><div class="sec-rule"></div></div><a class="link-all" href="#screen-10">Ver combinaciones</a></div>
+            <div class="look">
+              <div class="look-media ph" style="background:var(--t2)">[ foto de outfit completo ]</div>
+              <div class="look-side">
+                <div class="look-item"><div class="look-thumb ph" style="background:var(--t4)"></div><div style="flex:1"><div class="prod-name">Chemise Oxford</div><div class="prod-brand">Talla M · $52</div></div><span class="link-all">Cambiar</span></div>
+                <div class="look-item"><div class="look-thumb ph" style="background:var(--t5)"></div><div style="flex:1"><div class="prod-name">Jean slim</div><div class="prod-brand">Talla 32 · $52</div></div><span class="link-all">Cambiar</span></div>
+                <div class="look-item"><div class="look-thumb ph" style="background:var(--t3)"></div><div style="flex:1"><div class="prod-name">Sneaker Cuero</div><div class="prod-brand">Talla 40 · $89</div></div><span class="link-all">Cambiar</span></div>
+                <div class="look-total"><span class="prod-brand">Total del look</span><strong>$193</strong></div>
+                <button class="btn btn-dark btn-block" data-add>AÑADIR LOOK COMPLETO</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="sec" data-od-id="home-best">
+            <div class="sec-head"><div><div class="sec-title">MÁS VENDIDOS</div><div class="sec-rule"></div></div><a class="link-all" href="#screen-4">Ver más</a></div>
+            <div class="grid g5" data-products="jeanSlim,relojClasico,sueterCuello,chemiseOxford,sneakerClasico"></div>
+          </div>
+
+          <div class="giftband" data-od-id="home-gift">
+            <div>
+              <div class="eyebrow">TARJETAS DE REGALO</div>
+              <h3>Regala estilo Clothon</h3>
+              <button class="btn btn-light">COMPRAR GIFT CARD</button>
+            </div>
+            <div class="gift-card">CLOTHON</div>
+          </div>
+
+          <div class="sec" data-od-id="home-brands">
+            <div class="sec-head"><div><div class="sec-title">MARCAS DESTACADAS</div><div class="sec-rule"></div></div><a class="link-all" href="#screen-3">Todas las marcas</a></div>
+            <div class="brandrow">
+              <div class="brandlogo">LOGO</div><div class="brandlogo">LOGO</div><div class="brandlogo">LOGO</div>
+              <div class="brandlogo">LOGO</div><div class="brandlogo">LOGO</div><div class="brandlogo">LOGO</div>
+            </div>
+            <a class="brandsearch" href="#screen-7"><span>Buscar por <b>marca</b> y categoría</span><span class="go">→</span></a>
+          </div>
+        </div>
+
+        <footer class="sitefoot" data-footer data-od-id="home-footer"></footer>
+      </div></div>
+    </figure>
+  </section>
+
+  <!-- ═══ 2 · MENÚ ═══════════════════════════════════════════════ -->
+  <section class="mock" id="screen-2" data-od-id="mockup-menu">
+    <div class="mock-label">MOCKUP 2 DE 12</div>
+    <h2 class="mock-title">Menú</h2>
+    <p class="mock-desc">Mega menú de escritorio: categorías con subcategorías expandidas a la izquierda y acceso directo a todas las marcas a la derecha, sobre la página atenuada.</p>
+    <figure class="frame" data-design="1440">
+      <div class="frame-chrome"><span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><span class="urlbar"><span class="lock"></span>clothon.com/menu</span></div>
+      <div class="frame-viewport"><div class="screen">
+        <header class="sitebar" data-header="Inicio"></header>
+        <div class="mega-wrap">
+          <div class="hero-sm"></div>
+          <div class="scrim"></div>
+          <div class="mega" data-od-id="menu-panel">
+            <div class="wrap">
+              <div class="mega-grid">
+                <div class="mega-cats">
+                  <div class="mega-cat">
+                    <a class="head" href="#screen-4">ZAPATOS <span>︿</span></a>
+                    <ul><li><a href="#screen-4">Casual</a></li><li><a href="#screen-4">Deportivo</a></li><li><a href="#screen-4">Formal</a></li><li><a href="#screen-4">Botas</a></li></ul>
+                  </div>
+                  <div class="mega-cat"><a class="head" href="#screen-4">CHEMISES <span>⌄</span></a></div>
+                  <div class="mega-cat"><a class="head" href="#screen-4">FRANELAS <span>⌄</span></a></div>
+                  <div class="mega-cat"><a class="head" href="#screen-4">PANTALONES Y JEANS <span>⌄</span></a></div>
+                  <div class="mega-cat"><a class="head" href="#screen-4">SUÉTERES <span>⌄</span></a></div>
+                  <div class="mega-cat"><a class="head" href="#screen-4">GORRAS Y ACCESORIOS <span>⌄</span></a></div>
+                  <div class="mega-cat"><a class="head" href="#screen-8">FAVORITOS <span>›</span></a></div>
+                  <div class="mega-cat"><a class="head" href="#screen-10">ARMA TU LOOK <span>›</span></a></div>
+                </div>
+                <aside class="mega-side">
+                  <h5>MARCAS</h5>
+                  <div class="mega-brandlist" data-brands></div>
+                  <a class="mega-cta" href="#screen-3"><span>VER TODAS LAS MARCAS</span><span>→</span></a>
+                </aside>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div></div>
+    </figure>
+  </section>
+
+  <!-- ═══ 3 · DIRECTORIO DE MARCAS ═══════════════════════════════ -->
+  <section class="mock" id="screen-3" data-od-id="mockup-brands">
+    <div class="mock-label">MOCKUP 3 DE 12</div>
+    <h2 class="mock-title">Directorio de marcas</h2>
+    <p class="mock-desc">Todas las marcas en una cuadrícula amplia para elegir rápido y entrar a la colección de cada una.</p>
+    <figure class="frame" data-design="1440">
+      <div class="frame-chrome"><span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><span class="urlbar"><span class="lock"></span>clothon.com/marcas</span></div>
+      <div class="frame-viewport"><div class="screen">
+        <header class="sitebar" data-header="Marcas"></header>
+        <div class="wrap">
+          <div class="crumbs"><span>Inicio</span><span class="sep">/</span><span>Marcas</span></div>
+          <div class="pagehead"><div><h1>MARCAS</h1><div class="sec-rule"></div></div><span class="count">9 marcas disponibles</span></div>
+          <p class="mock-desc" style="margin:0 0 26px">Elige una marca para ver su colección completa.</p>
+          <div class="grid g3" data-brands-grid></div>
+        </div>
+        <div style="height:56px"></div>
+      </div></div>
+    </figure>
+  </section>
+
+  <!-- ═══ 4 · LISTADO — ZAPATOS ══════════════════════════════════ -->
+  <section class="mock" id="screen-4" data-od-id="mockup-listing">
+    <div class="mock-label">MOCKUP 4 DE 12</div>
+    <h2 class="mock-title">Listado — Zapatos</h2>
+    <p class="mock-desc">Categorías, filtros y orden arriba; cuadrícula de productos en fondo blanco debajo.</p>
+    <figure class="frame" data-design="1440">
+      <div class="frame-chrome"><span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><span class="urlbar"><span class="lock"></span>clothon.com/zapatos</span></div>
+      <div class="frame-viewport"><div class="screen">
+        <header class="sitebar" data-header="Zapatos"></header>
+        <div class="wrap">
+          <div class="crumbs"><span>Inicio</span><span class="sep">/</span><span>Zapatos</span></div>
+          <div class="pagehead"><div><h1>ZAPATOS</h1><div class="sec-rule"></div></div><span class="count">32 productos</span></div>
+          <div class="cats-row">
+            <a class="on" href="#">Todos</a><a href="#">Casual</a><a href="#">Deportivo</a><a href="#">Formal</a><a href="#">Botas</a>
+          </div>
+          <div class="toolbar">
+            <div class="chips">
+              <button class="chip" data-toggle>Talla<span class="chev">⌄</span></button>
+              <button class="chip" data-toggle>Precio<span class="chev">⌄</span></button>
+              <button class="chip on" data-toggle>Color<span class="chev">⌄</span></button>
+              <button class="chip" data-toggle>Marca<span class="chev">⌄</span></button>
+            </div>
+            <button class="sort">Ordenar: Más nuevo ⌄</button>
+          </div>
+          <div class="grid g4" data-products="sneakerLow,nauticoLona,sneakerMinimal,botaCasual,formalCuero,sneakerDeportivo,sneakerClasico,botinChelsea" data-tag="NUEVO"></div>
+        </div>
+        <div style="height:56px"></div>
+      </div></div>
+    </figure>
+  </section>
+
+  <!-- ═══ 5 · FICHA DE PRODUCTO ══════════════════════════════════ -->
+  <section class="mock" id="screen-5" data-od-id="mockup-product">
+    <div class="mock-label">MOCKUP 5 DE 12</div>
+    <h2 class="mock-title">Ficha de producto</h2>
+    <p class="mock-desc">Galería con video a la izquierda; marca, precio, color, talla, compra, acordeones y reseñas a la derecha.</p>
+    <figure class="frame" data-design="1440">
+      <div class="frame-chrome"><span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><span class="urlbar"><span class="lock"></span>clothon.com/producto/sneaker-cuero</span></div>
+      <div class="frame-viewport"><div class="screen">
+        <header class="sitebar" data-header="Zapatos"></header>
+        <div class="wrap">
+          <div class="crumbs"><span>Inicio</span><span class="sep">/</span><span>Zapatos</span><span class="sep">/</span><span>Sneaker cuero low</span></div>
+          <div class="pdp" data-od-id="pdp-main">
+            <div class="pdp-gallery">
+              <div class="pdp-thumbs">
+                <div class="pdp-thumb ph" style="background:var(--t2)" data-thumb></div>
+                <div class="pdp-thumb ph on" style="background:var(--t1)" data-thumb></div>
+                <div class="pdp-thumb ph" style="background:var(--t3)" data-thumb></div>
+                <div class="pdp-thumb ph" style="background:var(--t4);position:relative" data-thumb><span style="position:absolute;inset:0;display:grid;place-items:center;font-size:12px">▶</span></div>
+              </div>
+              <div class="pdp-main ph" style="background:linear-gradient(180deg,var(--t1),var(--t4))">[ foto principal del producto ]<div style="font-size:10px;margin-top:6px">↳ incluye video del producto</div></div>
+            </div>
+            <div>
+              <div class="pdp-brand">TOMMY HILFIGER</div>
+              <h1 class="pdp-title">Sneaker Cuero Low</h1>
+              <div class="pdp-rating"><span class="stars">★★★★☆</span><a href="#">24 reseñas</a></div>
+              <div class="pdp-price">$89</div>
+              <div class="pdp-stock">● En stock — listo para envío</div>
+
+              <div class="opt-label"><span>COLOR — BLANCO</span></div>
+              <div class="swatches">
+                <button class="swatch on" style="background:var(--surface)" data-swatch aria-label="Blanco"></button>
+                <button class="swatch" style="background:var(--ink)" data-swatch aria-label="Negro"></button>
+                <button class="swatch" style="background:var(--t5)" data-swatch aria-label="Marrón"></button>
+              </div>
+
+              <div class="opt-label"><span>TALLA</span><a href="#">Guía de tallas</a></div>
+              <div class="sizes">
+                <button class="size-opt" data-size>39</button>
+                <button class="size-opt on" data-size>40</button>
+                <button class="size-opt" data-size>41</button>
+                <button class="size-opt off" data-size disabled>42</button>
+                <button class="size-opt" data-size>43</button>
+                <button class="size-opt" data-size>44</button>
+              </div>
+
+              <div class="pdp-buy">
+                <button class="btn btn-dark btn-block" data-add>AÑADIR AL CARRITO</button>
+              </div>
+
+              <div style="margin-top:28px">
+                <div class="acc open"><button class="acc-head" data-acc>DETALLES<span class="acc-plus">＋</span></button><div class="acc-body">Piel genuina con forro textil. Suela de goma antideslizante. Corte bajo, ajuste regular. Hecho para uso diario.</div></div>
+                <div class="acc"><button class="acc-head" data-acc>Cuidado del producto<span class="acc-plus">＋</span></button><div class="acc-body">Limpia con un paño suave y seco. Evita el lavado en máquina y la exposición prolongada al sol. Usa protector hidrófugo antes del primer uso.</div></div>
+                <div class="acc"><button class="acc-head" data-acc>Envío y devoluciones<span class="acc-plus">＋</span></button><div class="acc-body">Envíos con MRW y Zoom el mismo día si el pedido se cancela antes de las 4:00 pm. Retiro disponible en tienda. Tienes 30 días para devoluciones con el producto sin usar.</div></div>
+              </div>
+
+              <div style="margin-top:30px">
+                <div class="sec-head" style="margin-bottom:14px"><div class="sec-title">RESEÑAS (24)</div><span class="stars" style="letter-spacing:2px">★★★★☆ 4.3</span></div>
+                <div class="reviews">
+                  <div class="review"><div class="review-head"><span style="font-weight:600">María G.</span><span class="stars">★★★★★</span></div><p>Calidad excelente, la talla es exacta a la guía.</p></div>
+                  <div class="review"><div class="review-head"><span style="font-weight:600">Carlos R.</span><span class="stars">★★★★☆</span></div><p>Muy cómodo, llegó bien empacado y rápido.</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sec">
+            <div class="sec-head"><div><div class="sec-title">TAMBIÉN TE PUEDE INTERESAR</div><div class="sec-rule"></div></div><a class="link-all" href="#screen-4">Ver más zapatos</a></div>
+            <div class="grid g4" data-products="nauticoLona,botaCasual,sneakerDeportivo,botinChelsea"></div>
+          </div>
+        </div>
+        <div style="height:40px"></div>
+      </div></div>
+    </figure>
+  </section>
+
+  <!-- ═══ 6 · PÁGINA DE MARCA ════════════════════════════════════ -->
+  <section class="mock" id="screen-6" data-od-id="mockup-brand">
+    <div class="mock-label">MOCKUP 6 DE 12</div>
+    <h2 class="mock-title">Página de marca — Tommy Hilfiger</h2>
+    <p class="mock-desc">Portada editorial de marca, accesos por categoría, nuevos ingresos, historia y más vendidos.</p>
+    <figure class="frame" data-design="1440">
+      <div class="frame-chrome"><span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><span class="urlbar"><span class="lock"></span>clothon.com/marcas/tommy-hilfiger</span></div>
+      <div class="frame-viewport"><div class="screen">
+        <header class="sitebar" data-header="Marcas"></header>
+        <div class="brandhero" data-od-id="brand-hero">
+          <span class="note">[ foto editorial de marca ]</span>
+          <div class="inner">
+            <span class="since">DESDE 1985</span>
+            <button class="btn btn-dark">VER COLECCIÓN</button>
+          </div>
+        </div>
+        <div class="wrap">
+          <div class="sec" style="margin-top:34px">
+            <div class="cats">
+              <a class="cat ph" style="background:var(--t1)" href="#screen-4"><span>CHEMISES</span></a>
+              <a class="cat ph" style="background:var(--t2)" href="#screen-4"><span>FRANELAS</span></a>
+              <a class="cat ph" style="background:var(--t3)" href="#screen-4"><span>ZAPATOS</span></a>
+            </div>
+          </div>
+          <div class="sec">
+            <div class="sec-head"><div><div class="sec-title">NUEVOS INGRESOS</div><div class="sec-rule"></div></div><a class="link-all" href="#screen-4">Ver todo</a></div>
+            <div class="grid g4" data-products="sneakerLow,chemiseOxford,franelaLogo,gorraLogo" data-tag="NUEVO"></div>
+          </div>
+          <div class="sec">
+            <div class="about">
+              <div class="ph" style="background:var(--t2)">[ foto marca ]</div>
+              <div>
+                <div class="sec-title" style="margin-bottom:14px">SOBRE LA MARCA</div>
+                <p style="font-size:13px;color:var(--ink-2);line-height:1.9;max-width:60ch">Estilo preppy americano con acabados clásicos desde 1985. Piezas atemporales que combinan el azul, el blanco y el rojo en prendas de uso diario.</p>
+              </div>
+            </div>
+          </div>
+          <div class="sec">
+            <div class="sec-head"><div><div class="sec-title">MÁS VENDIDOS DE LA MARCA</div><div class="sec-rule"></div></div><a class="link-all" href="#screen-4">Ver más</a></div>
+            <div class="grid g4" data-products="gorraLogo,relojClasico,sueterCuello,sneakerLow"></div>
+          </div>
+          <div style="border-top:1px solid var(--hair);padding:26px 0;text-align:center"><a class="link-all" href="#screen-3">Ver todas las marcas</a></div>
+        </div>
+      </div></div>
+    </figure>
+  </section>
+
+  <!-- ═══ 7 · BÚSQUEDA ═══════════════════════════════════════════ -->
+  <section class="mock" id="screen-7" data-od-id="mockup-search">
+    <div class="mock-label">MOCKUP 7 DE 12</div>
+    <h2 class="mock-title">Búsqueda</h2>
+    <p class="mock-desc">Buscador ancho, búsquedas recientes y resultados en cuadrícula.</p>
+    <figure class="frame" data-design="1440">
+      <div class="frame-chrome"><span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><span class="urlbar"><span class="lock"></span>clothon.com/buscar</span></div>
+      <div class="frame-viewport"><div class="screen">
+        <header class="sitebar" data-header="Inicio"></header>
+        <div class="wrap">
+          <div style="padding:34px 0 0;max-width:820px">
+            <div class="searchbar"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><input id="search-input" value="sneaker" aria-label="Buscar productos"></div>
+          </div>
+          <div style="padding:22px 0 26px;border-bottom:1px solid var(--hair)">
+            <div class="sec-title" style="font-size:11px;letter-spacing:1.5px;color:var(--muted);margin-bottom:12px">BÚSQUEDAS RECIENTES</div>
+            <div class="chips"><a class="chipsoft" href="#">chemise lino</a><a class="chipsoft" href="#">tommy hilfiger</a><a class="chipsoft" href="#">gorra</a><a class="chipsoft" href="#">sneaker</a></div>
+          </div>
+          <div class="sec" style="margin-top:28px">
+            <div class="sec-head"><div class="sec-title" id="result-count">4 RESULTADOS PARA «SNEAKER»</div><button class="sort">Relevancia ⌄</button></div>
+            <div class="grid g4" data-products="sneakerLow,sneakerMinimal,sneakerDeportivo,sneakerClasico"></div>
+          </div>
+        </div>
+        <div style="height:48px"></div>
+      </div></div>
+    </figure>
+  </section>
+
+  <!-- ═══ 8 · FAVORITOS ══════════════════════════════════════════ -->
+  <section class="mock" id="screen-8" data-od-id="mockup-favorites">
+    <div class="mock-label">MOCKUP 8 DE 12</div>
+    <h2 class="mock-title">Favoritos</h2>
+    <p class="mock-desc">Productos guardados con corazón activo; se pueden quitar desde la propia tarjeta.</p>
+    <figure class="frame" data-design="1440">
+      <div class="frame-chrome"><span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><span class="urlbar"><span class="lock"></span>clothon.com/favoritos</span></div>
+      <div class="frame-viewport"><div class="screen">
+        <header class="sitebar" data-header="Inicio"></header>
+        <div class="wrap">
+          <div class="crumbs"><span>Inicio</span><span class="sep">/</span><span>Favoritos</span></div>
+          <div class="pagehead"><div><h1>FAVORITOS</h1><div class="sec-rule"></div></div><span class="count" id="fav-count">8 productos guardados</span></div>
+          <div class="grid g4" data-products="sneakerLow,chemiseOxford,franelaOversize,gorraLogo,jeanSlim,relojClasico,bandolero,boxerPack" data-fav></div>
+        </div>
+        <div style="height:56px"></div>
+      </div></div>
+    </figure>
+  </section>
+
+  <!-- ═══ 9 · MI CUENTA ══════════════════════════════════════════ -->
+  <section class="mock" id="screen-9" data-od-id="mockup-account">
+    <div class="mock-label">MOCKUP 9 DE 12</div>
+    <h2 class="mock-title">Mi cuenta</h2>
+    <p class="mock-desc">Navegación lateral de la cuenta y panel de contenido con pedidos y direcciones.</p>
+    <figure class="frame" data-design="1440">
+      <div class="frame-chrome"><span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><span class="urlbar"><span class="lock"></span>clothon.com/mi-cuenta</span></div>
+      <div class="frame-viewport"><div class="screen">
+        <header class="sitebar" data-header="Inicio"></header>
+        <div class="wrap">
+          <div class="crumbs"><span>Inicio</span><span class="sep">/</span><span>Mi cuenta</span></div>
+          <div class="account">
+            <aside class="acc-side">
+              <div class="acc-user"><div class="avatar">M</div><div><div class="nm">María González</div><div class="em">maria.g@correo.com</div></div></div>
+              <nav class="acc-nav">
+                <a class="on" href="#">Mis pedidos<span>›</span></a>
+                <a href="#">Direcciones guardadas<span>›</span></a>
+                <a href="#screen-8">Favoritos<span>›</span></a>
+                <a href="#">Notificaciones<span>›</span></a>
+                <a href="#screen-12">Preguntas frecuentes<span>›</span></a>
+                <a class="danger" href="#">Cerrar sesión</a>
+              </nav>
+            </aside>
+            <div class="acc-panel">
+              <h3>MIS PEDIDOS</h3>
+              <div class="order-row"><div><div style="font-weight:600">Pedido #10428</div><div class="meta">12 sep 2026 · 2 artículos</div></div><span class="meta">En tránsito</span><strong>$141</strong></div>
+              <div class="order-row"><div><div style="font-weight:600">Pedido #10391</div><div class="meta">28 ago 2026 · 1 artículo</div></div><span class="meta">Entregado</span><strong>$89</strong></div>
+              <div class="order-row"><div><div style="font-weight:600">Pedido #10344</div><div class="meta">15 ago 2026 · 3 artículos</div></div><span class="meta">Entregado</span><strong>$188</strong></div>
+              <h3 style="margin-top:38px">DIRECCIONES GUARDADAS</h3>
+              <div class="addr-grid">
+                <div class="addr"><b>Casa</b>Av. Principal, Res. Los Chaguaramos<br>Caracas, Distrito Capital<br>0412-0341288</div>
+                <div class="addr"><b>Oficina</b>Torre Delta, piso 6, oficina 6B<br>Chacao, Miranda<br>0412-0341288</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="height:40px"></div>
+      </div></div>
+    </figure>
+  </section>
+
+  <!-- ═══ 10 · ARMA TU LOOK ══════════════════════════════════════ -->
+  <section class="mock" id="screen-10" data-od-id="mockup-look">
+    <div class="mock-label">MOCKUP 10 DE 12</div>
+    <h2 class="mock-title">Arma tu look</h2>
+    <p class="mock-desc">Combinador de prendas: outfit a la izquierda, prendas del look, total y añadir todo el conjunto al carrito.</p>
+    <figure class="frame" data-design="1440">
+      <div class="frame-chrome"><span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><span class="urlbar"><span class="lock"></span>clothon.com/arma-tu-look</span></div>
+      <div class="frame-viewport"><div class="screen">
+        <header class="sitebar" data-header="Arma tu look"></header>
+        <div class="wrap">
+          <div class="crumbs"><span>Inicio</span><span class="sep">/</span><span>Arma tu look</span></div>
+          <div class="pagehead"><div><h1>ARMA TU LOOK</h1><div class="sec-rule"></div></div><span class="count">3 prendas combinadas</span></div>
+          <div class="look" style="grid-template-columns:1fr 1fr;gap:44px">
+            <div class="look-media ph" style="background:var(--t2)">[ foto del outfit completo ]</div>
+            <div>
+              <div class="sec-title" style="font-size:11px;letter-spacing:1.5px;color:var(--muted);margin-bottom:14px">PRENDAS DE ESTE LOOK</div>
+              <div class="look-side">
+                <div class="look-item"><div class="look-thumb ph" style="background:var(--t4)"></div><div style="flex:1"><div class="prod-name">Chemise Oxford</div><div class="prod-brand">Talla M · $52</div></div><span class="link-all">Cambiar</span></div>
+                <div class="look-item"><div class="look-thumb ph" style="background:var(--t5)"></div><div style="flex:1"><div class="prod-name">Jean slim</div><div class="prod-brand">Talla 32 · $52</div></div><span class="link-all">Cambiar</span></div>
+                <div class="look-item"><div class="look-thumb ph" style="background:var(--t3)"></div><div style="flex:1"><div class="prod-name">Sneaker Cuero</div><div class="prod-brand">Talla 40 · $89</div></div><span class="link-all">Cambiar</span></div>
+                <div class="look-total"><span class="prod-brand">Total del look</span><strong>$193</strong></div>
+                <button class="btn btn-dark btn-block" data-add>AÑADIR LOOK COMPLETO</button>
+              </div>
+              <div style="margin-top:34px">
+                <div class="sec-title" style="font-size:11px;letter-spacing:1.5px;color:var(--muted);margin-bottom:14px">OTRAS COMBINACIONES</div>
+                <div class="grid g3">
+                  <div class="ph" style="background:var(--t2);aspect-ratio:3/4"></div>
+                  <div class="ph" style="background:var(--t3);aspect-ratio:3/4"></div>
+                  <div class="ph" style="background:var(--t4);aspect-ratio:3/4"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="height:52px"></div>
+      </div></div>
+    </figure>
+  </section>
+
+  <!-- ═══ 11 · GIFT CARD ═════════════════════════════════════════ -->
+  <section class="mock" id="screen-11" data-od-id="mockup-giftcard">
+    <div class="mock-label">MOCKUP 11 DE 12</div>
+    <h2 class="mock-title">Gift card</h2>
+    <p class="mock-desc">Vista previa de la tarjeta, montos, datos del destinatario y canje de una tarjeta existente.</p>
+    <figure class="frame" data-design="1440">
+      <div class="frame-chrome"><span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><span class="urlbar"><span class="lock"></span>clothon.com/gift-card</span></div>
+      <div class="frame-viewport"><div class="screen">
+        <header class="sitebar" data-header="Gift card"></header>
+        <div class="wrap">
+          <div class="crumbs"><span>Inicio</span><span class="sep">/</span><span>Tarjeta de regalo</span></div>
+          <div class="pagehead"><div><h1>TARJETA DE REGALO</h1><div class="sec-rule"></div></div></div>
+          <div class="gift-page">
+            <div>
+              <div class="giftcard-big"><span class="brand">CLOTHON</span><span class="val" id="gift-value">$50</span></div>
+              <div class="sec-title" style="font-size:11px;letter-spacing:1.5px;color:var(--muted);margin:24px 0 0">ELIGE UN MONTO</div>
+              <div class="amounts">
+                <button class="amt on" data-amt="25">$25</button>
+                <button class="amt" data-amt="50">$50</button>
+                <button class="amt" data-amt="100">$100</button>
+                <button class="amt" data-amt="custom">Otro monto</button>
+              </div>
+            </div>
+            <div>
+              <div class="field"><label for="gift-to">CORREO DEL DESTINATARIO</label><input id="gift-to" type="email" placeholder="nombre@correo.com"></div>
+              <div class="field"><label for="gift-msg">MENSAJE PERSONAL (OPCIONAL)</label><textarea id="gift-msg" placeholder="Escribe unas líneas…"></textarea></div>
+              <button class="btn btn-dark btn-block" data-add>COMPRAR GIFT CARD</button>
+              <div style="border-top:1px solid var(--hair);margin-top:34px;padding-top:26px">
+                <div class="sec-title" style="font-size:11px;letter-spacing:1.5px;color:var(--muted);margin-bottom:14px">¿YA TIENES UNA?</div>
+                <div class="redeem"><input class="input" style="border:1px solid var(--hair);border-radius:8px;padding:14px 16px;font:inherit;font-size:13px;color:var(--ink)" placeholder="Código de la tarjeta"><button class="btn btn-outline">CANJEAR</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="height:40px"></div>
+      </div></div>
+    </figure>
+  </section>
+
+  <!-- ═══ 12 · CONTACTO Y AYUDA ═════════════════════════════════ -->
+  <section class="mock" id="screen-12" data-od-id="mockup-help">
+    <div class="mock-label">MOCKUP 12 DE 12</div>
+    <h2 class="mock-title">Contacto y ayuda</h2>
+    <p class="mock-desc">Preguntas frecuentes desplegables, políticas y acceso directo a WhatsApp y ubicación.</p>
+    <figure class="frame" data-design="1440">
+      <div class="frame-chrome"><span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><span class="urlbar"><span class="lock"></span>clothon.com/ayuda</span></div>
+      <div class="frame-viewport"><div class="screen">
+        <header class="sitebar" data-header="Inicio"></header>
+        <div class="wrap">
+          <div class="crumbs"><span>Inicio</span><span class="sep">/</span><span>Ayuda</span></div>
+          <div class="pagehead"><div><h1>AYUDA</h1><div class="sec-rule"></div></div><span class="count">Respuesta en menos de 24 h</span></div>
+          <div class="help">
+            <div>
+              <div class="sec-title" style="font-size:11px;letter-spacing:1.5px;color:var(--muted);margin-bottom:14px">PREGUNTAS FRECUENTES</div>
+              <div class="acc open"><button class="acc-head" data-acc>¿Cuál es el tiempo de envío?<span class="acc-plus">＋</span></button><div class="acc-body">Los pedidos con MRW y Zoom se procesan el mismo día si se cancelan antes de las 4:00 pm. El tiempo de entrega depende de la ciudad de destino y te compartimos la guía de seguimiento por WhatsApp.</div></div>
+              <div class="acc"><button class="acc-head" data-acc>¿Qué métodos de pago aceptan?<span class="acc-plus">＋</span></button><div class="acc-body">Aceptamos Binance, Zelle y Pago Móvil (Banesco). Al elegir tu método en el checkout te mostramos los datos y el paso a paso para confirmar el pago.</div></div>
+              <div class="acc"><button class="acc-head" data-acc>¿Puedo cancelar mi pedido?<span class="acc-plus">＋</span></button><div class="acc-body">Sí, puedes cancelarlo si aún no ha sido despachado. Escríbenos por WhatsApp con tu número de pedido y lo gestionamos de inmediato.</div></div>
+              <div class="acc"><button class="acc-head" data-acc>¿Cómo funciona la política de devolución?<span class="acc-plus">＋</span></button><div class="acc-body">Tienes 30 días desde la entrega para devolver cualquier artículo sin usar, en su empaque original y con las etiquetas intactas. Contáctanos con tu número de pedido para recibir las instrucciones de envío.</div></div>
+            </div>
+            <aside class="help-side">
+              <div class="help-block">
+                <h5>POLÍTICAS</h5>
+                <div class="help-links"><a href="#">Política de devolución</a><a href="#">Información de envío</a><a href="#">Términos y condiciones</a><a href="#">Preguntas frecuentes</a></div>
+              </div>
+              <div class="help-dark">
+                <h5>¿NECESITAS AYUDA RÁPIDA?</h5>
+                <button class="btn btn-light">ESCRIBIR POR WHATSAPP</button>
+                <div class="foot"><span>Ver ubicación</span><span>Instagram</span></div>
+              </div>
+            </aside>
+          </div>
+        </div>
+        <footer class="sitefoot" data-footer></footer>
+      </div></div>
+    </figure>
+  </section>
+
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var $=function(s,r){return (r||document).querySelector(s);};
+  var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));};
+
+  /* ── iconos ─────────────────────────────────────────────────── */
+  var I={
+    search:'<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>',
+    user:'<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg>',
+    heart:'<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.6-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.4-7 10-7 10Z"/></svg>',
+    bag:'<svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>',
+    truck:'<svg viewBox="0 0 24 24"><rect x="1" y="6" width="14" height="11"/><path d="M15 9h4l3 3v5h-7z"/><circle cx="6" cy="19" r="1.6"/><circle cx="18" cy="19" r="1.6"/></svg>',
+    card:'<svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="1"/><path d="M2 10h20"/></svg>',
+    store:'<svg viewBox="0 0 24 24"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 9v11h14V9"/></svg>'
+  };
+
+  /* ── catálogo real de la base ───────────────────────────────── */
+  var P={
+    sneakerLow:{b:'Tommy Hilfiger',n:'Sneaker cuero low',p:89,t:'--t1'},
+    chemiseOxford:{b:'Tommy Hilfiger',n:'Chemise Oxford',p:52,t:'--t2'},
+    franelaLogo:{b:'Tommy Hilfiger',n:'Franela logo',p:31,t:'--t3'},
+    nauticoLona:{b:'Nautica',n:'Náutico lona',p:64,t:'--t2'},
+    sneakerMinimal:{b:'Hugo Boss',n:'Sneaker minimal',p:95,t:'--t1'},
+    botaCasual:{b:'Lacoste',n:'Bota casual',p:78,t:'--t4'},
+    formalCuero:{b:'Karl Lagerfeld',n:'Formal cuero',p:110,t:'--t5'},
+    sneakerDeportivo:{b:'Psycho Bunny',n:'Sneaker deportivo',p:82,t:'--t6'},
+    sneakerClasico:{b:'Lacoste',n:'Sneaker clásico',p:76,t:'--t3'},
+    botinChelsea:{b:'Hugo Boss',n:'Botín Chelsea',p:104,t:'--t6'},
+    chemiseLino:{b:'Karl Lagerfeld',n:'Chemise lino',p:45,t:'--t2'},
+    franelaOversize:{b:'Nautica',n:'Franela oversize',p:28,t:'--t4'},
+    gorraLogo:{b:'Tommy Hilfiger',n:'Gorra logo',p:18,t:'--t3'},
+    jeanSlim:{b:'Calvin Klein',n:'Jean slim',p:52,t:'--t2'},
+    relojClasico:{b:'Armani',n:'Reloj clásico',p:61,t:'--t1'},
+    sueterCuello:{b:'Carolina Herrera',n:'Suéter cuello alto',p:61,t:'--t3'},
+    bandolero:{b:'Armani',n:'Bandolero nylon',p:58,t:'--t4'},
+    boxerPack:{b:'Psycho Bunny',n:'Boxer (pack 3)',p:34,t:'--t2'}
+  };
+  var BRANDS=['Tommy Hilfiger','Hugo Boss','Psycho Bunny','Karl Lagerfeld','Nautica','Armani','Carolina Herrera','Lacoste','Calvin Klein'];
+  var NAV=['Inicio','Zapatos','Chemises','Franelas','Marcas','Arma tu look','Gift card'];
+
+  /* ── tarjeta de producto ────────────────────────────────────── */
+  function card(key,o){
+    var x=P[key]; if(!x) return '';
+    o=o||{};
+    var fav=o.fav?'<button class="prod-fav on" data-fav aria-label="Quitar de favoritos">♥</button>':'';
+    var tag=o.tag&&o.tag!=='false'?'<span class="prod-tag">'+o.tag+'</span>':'';
+    return '<article class="prod" data-od-id="product-'+key+'"><a href="#screen-5">'+
+      '<div class="prod-img ph" style="background:var('+x.t+')">'+fav+tag+'</div>'+
+      '<div class="prod-brand">'+x.b+'</div><div class="prod-name">'+x.n+'</div>'+
+      '<div class="prod-price">$'+x.p+'</div></a></article>';
+  }
+
+  /* ── cabecera y pie compartidos ─────────────────────────────── */
+  function headerHTML(active){
+    return '<div class="wrap"><a class="logo" href="#screen-1">CLOTHON</a>'+
+      '<nav class="mainnav">'+NAV.map(function(t){
+        return '<a href="#screen-1"'+(t===active?' class="on"':'')+'>'+t.toUpperCase()+'</a>';
+      }).join('')+'</nav>'+
+      '<div class="actions">'+
+        '<button class="icon-btn" title="Buscar" data-go="#screen-7">'+I.search+'</button>'+
+        '<button class="icon-btn" title="Mi cuenta" data-go="#screen-9">'+I.user+'</button>'+
+        '<button class="icon-btn" title="Favoritos" data-go="#screen-8">'+I.heart+'</button>'+
+        '<button class="icon-btn cart" title="Carrito">'+I.bag+'<span class="cart-count">0</span></button>'+
+      '</div></div>';
+  }
+  function footerHTML(){
+    function col(h,items){return '<div><h5>'+h+'</h5>'+items.map(function(t){return '<a href="#">'+t+'</a>';}).join('')+'</div>';}
+    return '<div class="wrap">'+
+      '<div class="foot-services">'+
+        '<div>'+I.truck+'<div><h4>ENVÍO</h4><p>MRW y Zoom<br>en el día</p></div></div>'+
+        '<div>'+I.card+'<div><h4>PAGO SEGURO</h4><p>Binance, Zelle<br>y Pago Móvil</p></div></div>'+
+        '<div>'+I.store+'<div><h4>RETIRO</h4><p>Directo en<br>nuestra tienda</p></div></div>'+
+      '</div>'+
+      '<div class="foot-grid">'+
+        '<div class="foot-brand"><div class="logo">CLOTHON</div><p>Tienda de moda multimarca: zapatos, chemises y franelas de las mejores marcas.</p><p><a href="#">Instagram</a> · <a href="#">WhatsApp</a></p></div>'+
+        col('TIENDA',['Zapatos','Chemises','Franelas','Pantalones y Jeans','Suéteres','Gorras y accesorios'])+
+        col('AYUDA',['Preguntas frecuentes','Política de devolución','Información de envío','Términos y condiciones','Arma tu look'])+
+        col('CONTACTO',['Ver ubicación','0412-0341288','clothonlinek@gmail.com','Marcas'])+
+      '</div>'+
+      '<div class="foot-bottom"><span>© 2026 Clothon · clothon.com</span><span>Binance · Zelle · Pago Móvil · MRW · Zoom</span></div>'+
+    '</div>';
+  }
+
+  /* ── render ─────────────────────────────────────────────────── */
+  $$('[data-header]').forEach(function(h){h.className='sitebar';h.innerHTML=headerHTML(h.getAttribute('data-header'));});
+  $$('[data-footer]').forEach(function(f){f.className='sitefoot';f.innerHTML=footerHTML();});
+
+  $$('[data-products]').forEach(function(el){
+    el.innerHTML=el.getAttribute('data-products').split(',').map(function(k){
+      return card(k.trim(),{fav:el.hasAttribute('data-fav'),tag:el.getAttribute('data-tag')});
+    }).join('');
+  });
+
+  var brandList='<a href="#screen-6">'+BRANDS.join('</a><a href="#screen-6">')+'</a>';
+  $$('[data-brands]').forEach(function(el){el.innerHTML=brandList;});
+  $$('[data-brands-grid]').forEach(function(el){
+    el.innerHTML=BRANDS.map(function(b,i){
+      return '<a class="ph" style="aspect-ratio:4/3;background:var('+['--t1','--t2','--t3','--t4','--t5','--t6','--t2','--t3','--t4'][i]+');position:relative" href="#screen-6" data-od-id="brand-'+i+'">'+
+        '<span style="position:absolute;inset:auto 0 0 0;background:color-mix(in oklab,var(--surface) 90%,transparent);padding:12px;font-size:11.5px;letter-spacing:1.5px;color:var(--ink)">'+b.toUpperCase()+'</span>[ foto ]</a>';
+    }).join('');
+  });
+
+  var dots=$('#hero-dots');
+  if(dots){dots.innerHTML='<button class="on" aria-label="Slide 1"></button><button aria-label="Slide 2"></button><button aria-label="Slide 3"></button><button aria-label="Slide 4"></button>';}
+
+  /* ── interactividad ─────────────────────────────────────────── */
+  var cart=0, cartEls=$$('.cart-count');
+  function bump(){cart++;cartEls.forEach(function(c){c.textContent=cart;c.animate?c.animate([{transform:'scale(1)'},{transform:'scale(1.5)'},{transform:'scale(1)'}],{duration:260}):0;});}
+  function syncFavCount(grid){
+    var n=$$('.prod',grid).filter(function(a){return a.style.display!=='none';}).length;
+    var c=$('#fav-count');
+    if(c)c.textContent=n+(n===1?' producto guardado':' productos guardados');
+  }
+  document.addEventListener('click',function(e){
+    var add=e.target.closest('[data-add]'); if(add){bump();return;}
+    var go=e.target.closest('[data-go]'); if(go){location.hash=go.getAttribute('data-go');return;}
+    var fav=e.target.closest('[data-fav]'); if(fav){
+      var on=fav.classList.toggle('on');
+      fav.setAttribute('aria-pressed',on?'true':'false');
+      var grid=fav.closest('[data-products][data-fav]');
+      if(grid){
+        var art=fav.closest('.prod');
+        if(art&&!on)art.style.display='none';
+        syncFavCount(grid);
+      }
+      e.preventDefault();return;
+    }
+    var sw=e.target.closest('[data-swatch]'); if(sw){$$('[data-swatch]',sw.parentNode).forEach(function(s){s.classList.remove('on');});sw.classList.add('on');return;}
+    var sz=e.target.closest('[data-size]'); if(sz&&!sz.disabled){$$('[data-size]',sz.parentNode).forEach(function(s){s.classList.remove('on');});sz.classList.add('on');return;}
+    var th=e.target.closest('[data-thumb]'); if(th){$$('[data-thumb]',th.parentNode).forEach(function(s){s.classList.remove('on');});th.classList.add('on');return;}
+    var acc=e.target.closest('[data-acc]'); if(acc){acc.parentNode.classList.toggle('open');return;}
+    var ch=e.target.closest('[data-toggle]'); if(ch){ch.classList.toggle('on');return;}
+    var amt=e.target.closest('[data-amt]'); if(amt){$$('[data-amt]',amt.parentNode).forEach(function(a){a.classList.remove('on');});amt.classList.add('on');var v=amt.getAttribute('data-amt');$('#gift-value').textContent=v==='custom'?'$ __':'$'+v;return;}
+    var sl=e.target.closest('[data-slide]'); if(sl){cycleSlide(parseInt(sl.getAttribute('data-slide'),10));return;}
+  });
+
+  var slide=0;
+  function cycleSlide(dir){
+    var notes=['[ carrusel — foto editorial 1 de 4 ]','[ carrusel — foto editorial 2 de 4 ]','[ carrusel — foto editorial 3 de 4 ]','[ carrusel — foto editorial 4 de 4 ]'];
+    var labels=['NUEVA COLECCIÓN','ZAPATOS','CHEMISES','FRANELAS'];
+    slide=(slide+dir+4)%4;
+    var n=$('#hero-note'),lab=$('#hero-eyebrow');
+    if(n)n.textContent=notes[slide];
+    if(lab)lab.textContent=labels[slide];
+    $$('#hero-dots button').forEach(function(b,i){b.classList.toggle('on',i===slide);});
+  }
+  var search=$('#search-input');
+  if(search){search.addEventListener('input',function(){var v=search.value.trim().toUpperCase()||'—';$('#result-count').textContent='4 RESULTADOS PARA «'+v+'»';});}
+
+  /* ── índice lateral ─────────────────────────────────────────── */
+  var idx=$('#idx'), screens=$$('.mock');
+  idx.innerHTML=screens.map(function(s,i){
+    return '<a href="#'+s.id+'" data-idx="'+s.id+'">'+(i+1)+' · '+s.querySelector('.mock-title').textContent+'</a>';
+  }).join('');
+  var links=$$('#idx a');
+  function setActive(id){links.forEach(function(a){a.classList.toggle('on',a.getAttribute('data-idx')===id);});}
+  var stored=null; try{stored=localStorage.getItem('clothon-desktop-screen');}catch(e){}
+  if(stored)setActive(stored);
+  links.forEach(function(a){a.addEventListener('click',function(){var id=a.getAttribute('data-idx');setActive(id);try{localStorage.setItem('clothon-desktop-screen',id);}catch(e){}});});
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){if(en.isIntersecting){setActive(en.target.id);try{localStorage.setItem('clothon-desktop-screen',en.target.id);}catch(e){}}});
+    },{rootMargin:'-35% 0px -60% 0px'});
+    screens.forEach(function(s){io.observe(s);});
+  }
+
+  /* ── ajuste de escala de los marcos ─────────────────────────── */
+  function fitFrames(){
+    $$('.frame').forEach(function(f){
+      var design=parseInt(f.getAttribute('data-design'),10)||1440;
+      var vp=$('.frame-viewport',f), sc=$('.screen',f);
+      var scale=Math.min(1,vp.clientWidth/design);
+      sc.style.transform='scale('+scale+')';
+      vp.style.height=(sc.offsetHeight*scale)+'px';
+    });
+  }
+  window.addEventListener('resize',fitFrames);
+  window.addEventListener('load',fitFrames);
+  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(fitFrames);}
+  requestAnimationFrame(fitFrames);
+})();
+</script>
+</body>
+</html>

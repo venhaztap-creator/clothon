@@ -1,0 +1,10 @@
+# --- tooling interno del diseño (no forma parte del sitio) ---
+.file-versions/
+.od-skills/
+*.artifact.json
+
+# --- sistema / editor ---
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.log
